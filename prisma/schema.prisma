@@ -4,6 +4,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/@prisma/client-social"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -12,7 +13,7 @@ datasource db {
 }
 
 // ============================================================
-// USER PROFILE (mirrors identity-service, owned by social)
+// SOCIAL PROFILE PROJECTION (owned by social)
 // ============================================================
 model UserProfile {
   id                 String    @id @default(uuid())

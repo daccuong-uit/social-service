@@ -24,30 +24,22 @@ Service này đã hoàn thiện toàn bộ các nhóm tính năng (Domains) dư�
   - Để biết cách Frontend gọi API, xem file [FE_INTEGRATION.md](./FE_INTEGRATION.md).
   - Để hiểu lý do chọn kiến trúc và các technical debts, xem file [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-## Chạy Ứng Dụng (Local)
+## Chạy bằng Docker
 
-1. **Cài đặt dependencies:**
-   ```bash
-   npm install
-   ```
+Từ Agent repository:
 
-2. **Cấu hình biến môi trường (`.env` ở root package):**
-   ```env
-   SOCIAL_DATABASE_URL="postgresql://user:pass@localhost:5432/social_db?schema=public"
-   ```
+```powershell
+docker compose up -d social-postgres social-service
+docker compose logs -f social-service
+```
 
-3. **Database Migration / Generate Client:**
-   ```bash
-   npm run db:generate
-   npm run db:push
-   ```
+Health check: `http://localhost:3004/api/v1/health`.
 
-4. **Khởi chạy Development Server:**
-   ```bash
-   npm run dev
-   ```
+`social-service` chỉ sở hữu `social_db`; nó không đọc database của IAM hoặc Media. `.env.example` mô tả contract, còn Compose injects URL nội bộ Docker.
 
-Service sẽ chạy tại: `http://localhost:3002` (cấu hình port theo env/gateway).
+## Push và cập nhật
+
+Push vào Git repository của Social sẽ chạy CI và publish image riêng. Container hiện tại không tự restart sau Git push. Build image mới và recreate service bằng `docker compose build social-service; docker compose up -d social-service`, hoặc cập nhật Deployment trong Kubernetes.
 
 ## Roadmap
 

@@ -40,7 +40,7 @@ export class UserEventListenersService implements OnModuleInit {
 
   /**
    * Handle user.created.v1 event
-   * Creates a UserProfile in social-service when user is created in auth-service
+  * Creates a social UserProfile when a user is created in iam-service
    */
   private async handleUserCreated(event: any): Promise<void> {
     try {
