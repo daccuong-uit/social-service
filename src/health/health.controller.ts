@@ -5,12 +5,12 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 @Controller('health')
 export class HealthController {
   @Get()
-  @ApiOperation({ summary: 'Identity Service health check' })
+  @ApiOperation({ summary: 'Social Service health check' })
   @ApiResponse({ status: 200, description: 'Service is healthy' })
   check() {
     return {
       status: 'ok',
-      service: 'identity-service',
+      service: 'social-service',
       timestamp: new Date().toISOString(),
     };
   }
