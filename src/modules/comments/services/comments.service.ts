@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../../../common/prisma/prisma.service';
 import { NotificationsService } from '../../notifications/services/notifications.service';
-import { createLogger } from '@platform/logger';
+import { createLogger } from '@daccuong-uit/platform-logger';
 import { CreateCommentDto, UpdateCommentDto } from '../dto/comment.dto';
 
 const logger = createLogger({ service: 'social-service:comments' });

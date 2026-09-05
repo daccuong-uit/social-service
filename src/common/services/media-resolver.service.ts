@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { createLogger } from '@platform/logger';
+import { createLogger } from '@daccuong-uit/platform-logger';
 
 const logger = createLogger({ service: 'social-service:media-resolver' });
 

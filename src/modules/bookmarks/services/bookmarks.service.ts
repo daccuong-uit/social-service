@@ -1,6 +1,6 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../../../common/prisma/prisma.service';
-import { createLogger } from '@platform/logger';
+import { createLogger } from '@daccuong-uit/platform-logger';
 import { AddBookmarkDto, RemoveBookmarkDto, BookmarksQueryDto } from '../dto/bookmark.dto';
 
 const logger = createLogger({ service: 'social-service:bookmarks' });

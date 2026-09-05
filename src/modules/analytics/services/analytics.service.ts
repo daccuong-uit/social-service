@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../../common/prisma/prisma.service';
-import { createLogger } from '@platform/logger';
+import { createLogger } from '@daccuong-uit/platform-logger';
 import { TargetType, TrackWatchTimeDto } from '../dto/analytics.dto';
 
 const logger = createLogger({ service: 'social-service:analytics' });

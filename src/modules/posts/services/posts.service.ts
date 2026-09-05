@@ -4,8 +4,9 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../../../common/prisma/prisma.service';
-import { createLogger } from '@platform/logger';
-import { EventBusService, DomainEvent } from '@platform/common';
+import { createLogger } from '@daccuong-uit/platform-logger';
+import { EventBusService } from '@daccuong-uit/platform-event-bus';
+import { DomainEvent } from '@daccuong-uit/contracts-events';
 import { PostVisibility } from '@prisma/client-social';
 import { randomUUID } from 'crypto';
 import {

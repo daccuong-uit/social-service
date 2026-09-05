@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { loadConfig, BaseEnvSchema } from '@platform/config';
+import { loadConfig, BaseEnvSchema } from '@daccuong-uit/platform-config';
 import { z } from 'zod';
 
 const SocialEnvSchema = BaseEnvSchema.extend({

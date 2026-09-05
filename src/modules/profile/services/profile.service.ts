@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PostType } from '@prisma/client-social';
-import { createLogger } from '@platform/logger';
+import { createLogger } from '@daccuong-uit/platform-logger';
 import { PrismaService } from '../../../common/prisma/prisma.service';
 import { UpdateProfileDto } from '../../users/dto/user.dto';
 

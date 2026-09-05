@@ -5,7 +5,7 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { PrismaService } from '../../../common/prisma/prisma.service';
-import { createLogger } from '@platform/logger';
+import { createLogger } from '@daccuong-uit/platform-logger';
 import { CreateGroupDto, UpdateGroupDto, UpdateMemberRoleDto, InviteMembersDto } from '../dto/group.dto';
 import { MediaResolverService } from '../../../common/services/media-resolver.service';
 

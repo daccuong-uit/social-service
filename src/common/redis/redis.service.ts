@@ -1,5 +1,5 @@
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { createRedisClient, Redis, RedisClientOptions } from '@platform/redis';
+import { createRedisClient, Redis, RedisClientOptions } from '@daccuong-uit/platform-cache';
 import { appConfig } from '../../config/app.config';
 
 @Injectable()

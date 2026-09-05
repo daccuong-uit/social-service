@@ -18,7 +18,7 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { FriendshipService } from '../services/friendship.service';
-import { PaginationQueryDto, TargetUserDto, UserListResponseDto, ActionResponseDto, AcceptRejectResponseDto, UnfriendResponseDto } from '../dto/friendship.dto';
+import { PaginationQueryDto, TargetUserDto, UserListResponseDto, ActionResponseDto, AcceptRejectResponseDto, UnfriendResponseDto, UpdateRelationshipTypeDto } from '../dto/friendship.dto';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 
 @ApiTags('friendship')
@@ -307,7 +307,7 @@ export class FriendshipController {
   updateRelationshipType(
     @Param('userId', ParseUUIDPipe) friendId: string,
     @CurrentUser() currentUserId: string,
-    @Body() dto: import('./dto/friendship.dto').UpdateRelationshipTypeDto,
+    @Body() dto: UpdateRelationshipTypeDto,
   ) {
     return this.friendshipService.updateRelationshipType(currentUserId, friendId, dto.type);
   }

@@ -1,5 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { EventBusService, DomainEvent } from '@platform/common';
+import { EventBusService } from '@daccuong-uit/platform-event-bus';
+import { DomainEvent } from '@daccuong-uit/contracts-events';
 import { PrismaService } from '../../../common/prisma/prisma.service';
 import { PostLikeCacheService } from '../services/post-like-cache.service';
 

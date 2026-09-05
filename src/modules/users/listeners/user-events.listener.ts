@@ -1,5 +1,6 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
-import { EventBusService, DomainEvent, isUserCreatedEvent } from '@platform/common';
+import { EventBusService } from '@daccuong-uit/platform-event-bus';
+import { DomainEvent, isUserCreatedEvent } from '@daccuong-uit/contracts-events';
 import { UsersService } from '../services/users.service';
 
 /**
