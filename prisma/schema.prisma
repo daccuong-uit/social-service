@@ -59,10 +59,6 @@ model UserProfile {
   videos           Video[]
   playlists        Playlist[]
   watchHistory     WatchHistory[]
-  novels           Novel[]
-  novelFollows     NovelFollow[]
-  readingProgress  ReadingProgress[]
-  novelRatings     NovelRating[]
   ReelLike         ReelLike[]
 
   @@map("user_profiles")
@@ -407,8 +403,6 @@ enum ReactionTarget {
   COMMENT
   REEL
   VIDEO
-  NOVEL
-  CHAPTER
 }
 
 // ============================================================
@@ -425,8 +419,6 @@ model Bookmark {
   post    Post?       @relation(fields: [targetId], references: [id], onDelete: Cascade, map: "bookmark_post_fk")
   reel    Reel?       @relation(fields: [targetId], references: [id], onDelete: Cascade, map: "bookmark_reel_fk")
   video   Video?      @relation(fields: [targetId], references: [id], onDelete: Cascade, map: "bookmark_video_fk")
-  novel   Novel?      @relation(fields: [targetId], references: [id], onDelete: Cascade, map: "bookmark_novel_fk")
-  chapter Chapter?    @relation(fields: [targetId], references: [id], onDelete: Cascade, map: "bookmark_chapter_fk")
 
   @@unique([userId, targetId, targetType])
   @@map("bookmarks")
@@ -462,8 +454,6 @@ enum BookmarkTarget {
   POST
   REEL
   VIDEO
-  NOVEL
-  CHAPTER
 }
 
 // ============================================================
@@ -628,117 +618,6 @@ model WatchHistory {
   @@map("watch_history")
 }
 
-// ============================================================
-// NOVELS (WebNovel/Wattpad style)
-// ============================================================
-model Novel {
-  id            String          @id @default(uuid())
-  authorId      String          @map("author_id")
-  title         String
-  synopsis      String?
-  coverMediaId  String?         @map("cover_media_id")
-  genres        String[]
-  tags          String[]
-  status        NovelStatus     @default(ONGOING)
-  visibility    NovelVisibility @default(PUBLIC)
-  averageRating Float           @default(0.0) @map("average_rating")
-  ratingCount   Int             @default(0) @map("rating_count")
-  viewCount     Int             @default(0) @map("view_count")
-  followerCount Int             @default(0) @map("follower_count")
-  chapterCount  Int             @default(0) @map("chapter_count")
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @updatedAt @map("updated_at")
-
-  author    UserProfile   @relation(fields: [authorId], references: [userId], onDelete: Cascade)
-  chapters  Chapter[]
-  follows   NovelFollow[]
-  ratings   NovelRating[]
-  bookmarks Bookmark[]
-
-  @@index([visibility, createdAt(sort: Desc)])
-  @@index([authorId, createdAt(sort: Desc)])
-  @@index([status, createdAt(sort: Desc)])
-  @@index([averageRating(sort: Desc)])
-  @@map("novels")
-}
-
-enum NovelStatus {
-  ONGOING
-  COMPLETED
-  HIATUS
-}
-
-enum NovelVisibility {
-  PUBLIC
-  PRIVATE
-}
-
-model Chapter {
-  id           String   @id @default(uuid())
-  novelId      String   @map("novel_id")
-  title        String
-  content      String // The actual chapter text
-  orderIndex   Int      @map("order_index")
-  viewCount    Int      @default(0) @map("view_count")
-  commentCount Int      @default(0) @map("comment_count")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-
-  novel           Novel             @relation(fields: [novelId], references: [id], onDelete: Cascade)
-  readingProgress ReadingProgress[]
-  bookmarks       Bookmark[]
-
-  @@unique([novelId, orderIndex])
-  @@index([novelId, orderIndex(sort: Asc)])
-  @@map("chapters")
-}
-
-model NovelFollow {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  novelId   String   @map("novel_id")
-  createdAt DateTime @default(now()) @map("created_at")
-
-  user  UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  novel Novel       @relation(fields: [novelId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, novelId])
-  @@index([userId, createdAt(sort: Desc)])
-  @@map("novel_follows")
-}
-
-model NovelRating {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  novelId   String   @map("novel_id")
-  rating    Int // 1 to 5
-  review    String?
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  user  UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  novel Novel       @relation(fields: [novelId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, novelId])
-  @@index([novelId, createdAt(sort: Desc)])
-  @@map("novel_ratings")
-}
-
-model ReadingProgress {
-  id              String   @id @default(uuid())
-  userId          String   @map("user_id")
-  chapterId       String   @map("chapter_id")
-  novelId         String   @map("novel_id") // Denormalized for easier novel-level queries
-  progressPercent Float    @default(0) @map("progress_percent")
-  lastReadAt      DateTime @default(now()) @map("last_read_at")
-
-  user    UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  chapter Chapter     @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, novelId]) // Ensures one active reading progress per novel per user
-  @@index([userId, lastReadAt(sort: Desc)])
-  @@map("reading_progress")
-}
 
 // ============================================================
 // HASHTAGS

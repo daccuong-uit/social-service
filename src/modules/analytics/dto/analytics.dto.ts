@@ -5,7 +5,6 @@ export enum TargetType {
   POST = 'post',
   REEL = 'reel',
   VIDEO = 'video',
-  NOVEL = 'novel',
 }
 
 export class GetAnalyticsDto {

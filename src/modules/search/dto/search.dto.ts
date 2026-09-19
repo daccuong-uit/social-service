@@ -8,7 +8,6 @@ export enum SearchType {
   POSTS = 'posts',
   REELS = 'reels',
   VIDEOS = 'videos',
-  NOVELS = 'novels',
   GROUPS = 'groups',
   HASHTAGS = 'hashtags',
 }

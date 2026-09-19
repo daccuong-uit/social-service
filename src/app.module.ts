@@ -17,7 +17,6 @@ import { BookmarksModule } from './modules/bookmarks/bookmarks.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { ReelsModule } from './modules/reels/reels.module';
 import { VideosModule } from './modules/videos/videos.module';
-import { NovelsModule } from './modules/novels/novels.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { HashtagsModule } from './modules/hashtags/hashtags.module';
 import { SearchModule } from './modules/search/search.module';
@@ -44,7 +43,6 @@ import { ProfileModule } from './modules/profile/profile.module';
     NotificationsModule,
     ReelsModule,
     VideosModule,
-    NovelsModule,
     AnalyticsModule,
     HashtagsModule,
     SearchModule,

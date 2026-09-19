@@ -19,8 +19,6 @@ export class AnalyticsService {
         return this.getReelAnalytics(targetId, currentUserId);
       case TargetType.VIDEO:
         return this.getVideoAnalytics(targetId, currentUserId);
-      case TargetType.NOVEL:
-        return this.getNovelAnalytics(targetId, currentUserId);
       default:
         throw new NotFoundException('Target type không hợp lệ');
     }
@@ -101,28 +99,6 @@ export class AnalyticsService {
       totalWatchTimeSeconds: video.totalWatchTime,
       engagementRate: video.viewCount > 0
         ? ((video.likeCount + video.commentCount + video.shareCount + video._count.bookmarks) / video.viewCount) * 100
-        : 0,
-    };
-  }
-
-  private async getNovelAnalytics(novelId: string, userId: string) {
-    const novel = await this.prisma.novel.findUnique({
-      where: { id: novelId },
-      include: { _count: { select: { bookmarks: true } } },
-    });
-    if (!novel) throw new NotFoundException('Tiểu thuyết không tồn tại');
-    if (novel.authorId !== userId) throw new ForbiddenException('Bạn không có quyền xem analytics này');
-
-    return {
-      views: novel.viewCount,
-      impressions: Math.floor(novel.viewCount * 1.1), // Giả lập impressions
-      followerCount: novel.followerCount,
-      averageRating: novel.averageRating,
-      ratingCount: novel.ratingCount,
-      saves: novel._count.bookmarks,
-      chapterCount: novel.chapterCount,
-      engagementRate: novel.viewCount > 0
-        ? ((novel.followerCount + novel.ratingCount + novel._count.bookmarks) / novel.viewCount) * 100
         : 0,
     };
   }

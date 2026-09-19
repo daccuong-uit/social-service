@@ -16,8 +16,6 @@ export enum ReactionTarget {
   COMMENT = 'comment',
   REEL = 'reel',
   VIDEO = 'video',
-  NOVEL = 'novel',
-  CHAPTER = 'chapter',
 }
 
 export class UpsertReactionDto {

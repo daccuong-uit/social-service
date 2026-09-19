@@ -373,34 +373,7 @@ export class ProfileService {
         };
       }
 
-      case 'novels': {
-        const [total, novels] = await Promise.all([
-          this.prisma.novel.count({ where: { authorId: userId } }),
-          this.prisma.novel.findMany({
-            where: { authorId: userId },
-            skip,
-            take: pageSize,
-            orderBy: { createdAt: 'desc' },
-            select: {
-              id: true,
-              title: true,
-              synopsis: true,
-              coverMediaId: true,
-              genres: true,
-              followerCount: true,
-              viewCount: true,
-              ratingCount: true,
-              createdAt: true,
-            },
-          }),
-        ]);
 
-        return {
-          statusCode: 200,
-          data: novels,
-          meta: { pagination: this.buildPagination(page, pageSize, total), timestamp: new Date().toISOString() },
-        };
-      }
 
       case 'friends': {
         // Return accepted friends (friendships where userId is involved)

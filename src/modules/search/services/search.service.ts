@@ -84,18 +84,6 @@ export class SearchService {
       if (!isAll) meta.pagination = this.buildPagination(page, pageSize, total);
     }
 
-    if (isAll || type === SearchType.NOVELS) {
-      const [total, novels] = await Promise.all([
-        this.prisma.novel.count({ where: { title: { contains: q, mode: 'insensitive' }, visibility: 'PUBLIC' } }),
-        this.prisma.novel.findMany({
-          where: { title: { contains: q, mode: 'insensitive' }, visibility: 'PUBLIC' },
-          skip: currentSkip, take: currentTake, orderBy: { averageRating: 'desc' },
-          select: { id: true, title: true, coverMediaId: true, author: { select: { userId: true, username: true } } },
-        }),
-      ]);
-      results.novels = novels;
-      if (!isAll) meta.pagination = this.buildPagination(page, pageSize, total);
-    }
 
     if (isAll || type === SearchType.GROUPS) {
       const [total, groups] = await Promise.all([

@@ -6,7 +6,6 @@ export enum BookmarkTarget {
   POST = 'post',
   REEL = 'reel',
   VIDEO = 'video',
-  NOVEL = 'novel',
 }
 
 export class AddBookmarkDto {
