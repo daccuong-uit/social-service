@@ -33,7 +33,7 @@ docker compose up -d social-postgres social-service
 docker compose logs -f social-service
 ```
 
-Health check: `http://localhost:3004/api/v1/health`.
+Health check: `http://localhost:3002/api/v1/health`.
 
 `social-service` chỉ sở hữu `social_db`; nó không đọc database của IAM hoặc Media. `.env.example` mô tả contract, còn Compose injects URL nội bộ Docker.
 
