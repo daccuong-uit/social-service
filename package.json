@@ -14,6 +14,7 @@
     "db:push": "dotenv-cli -e .env -- prisma db push"
   },
   "dependencies": {
+    "@daccuong-uit/backend-auth": "^0.1.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-fastify": "^10.0.0",

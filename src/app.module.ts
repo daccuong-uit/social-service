@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { createAuthGuard, JwtVerifier } from '@daccuong-uit/backend-auth';
 
 // Core
 import { PrismaModule } from './common/prisma/prisma.module';
@@ -23,6 +25,13 @@ import { SearchModule } from './modules/search/search.module';
 
 // Legacy (profile endpoint — được thay bởi UsersModule nhưng giữ để backward compat)
 import { ProfileModule } from './modules/profile/profile.module';
+
+const KeycloakAuthGuard = createAuthGuard(new JwtVerifier({
+  jwksUri: process.env.AUTH_JWKS_URI ?? 'http://keycloak:8080/realms/reals/protocol/openid-connect/certs',
+  issuer: process.env.AUTH_ISSUER ?? 'http://localhost:8080/realms/reals',
+  audience: process.env.AUTH_AUDIENCE ?? 'account',
+  clientId: process.env.AUTH_CLIENT_ID ?? 'account',
+}));
 
 @Module({
   imports: [
@@ -50,5 +59,6 @@ import { ProfileModule } from './modules/profile/profile.module';
     // Legacy
     ProfileModule,
   ],
+  providers: [{ provide: APP_GUARD, useClass: KeycloakAuthGuard }],
 })
 export class AppModule {}
