@@ -27,7 +27,7 @@ import { SearchModule } from './modules/search/search.module';
 import { ProfileModule } from './modules/profile/profile.module';
 
 const KeycloakAuthGuard = createAuthGuard(new JwtVerifier({
-  jwksUri: process.env.AUTH_JWKS_URI ?? 'http://keycloak:8080/realms/reals/protocol/openid-connect/certs',
+  jwksUri: process.env.AUTH_JWKS_URI ?? 'http://localhost:8080/realms/reals/protocol/openid-connect/certs',
   issuer: process.env.AUTH_ISSUER ?? 'http://localhost:8080/realms/reals',
   audience: process.env.AUTH_AUDIENCE ?? 'account',
   clientId: process.env.AUTH_CLIENT_ID ?? 'account',

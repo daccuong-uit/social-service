@@ -1,4 +1,4 @@
-﻿FROM node:20-alpine AS builder
+﻿FROM node:22-alpine AS builder
 WORKDIR /app
 RUN apk add --no-cache openssl
 COPY package.json .npmrc ./
@@ -10,7 +10,7 @@ COPY src ./src
 COPY prisma ./prisma
 RUN npx prisma generate && npx nest build
 
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 ENV NODE_ENV=production
 WORKDIR /app
 RUN apk add --no-cache openssl
